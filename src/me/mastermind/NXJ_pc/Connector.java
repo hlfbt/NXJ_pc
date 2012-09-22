@@ -86,7 +86,7 @@ public class Connector implements Runnable {
                 }
             } catch (IOException ex) {
                 Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
-                System.exit(0);
+                System.exit(0); // workaround because it doesn't get the data packet for some reason...
             }
         }
     }
