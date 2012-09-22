@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package me.mastermind.NXJ_pc;
 
 import java.io.IOException;
@@ -12,6 +8,7 @@ import java.util.logging.Logger;
 import lejos.pc.comm.NXTComm;
 import lejos.pc.comm.NXTCommException;
 import lejos.pc.comm.NXTCommFactory;
+import lejos.pc.comm.NXTCommInputStream;
 import lejos.pc.comm.NXTConnector;
 import lejos.pc.comm.NXTInfo;
 
@@ -19,15 +16,14 @@ import lejos.pc.comm.NXTInfo;
  *
  * @author Alexander
  */
-public class Connector implements Runnable {
+public class Connector {
     
     private NXTComm nxtComm = null;
     private NXTInfo[] nxtInfo = null;
     private NXTConnector nxtCon = new NXTConnector();
     private OutputStream nxtOut = null;
-    private InputStream nxtIn = null;
-    
-    public int data = 0;
+
+    public static NXTCommInputStream nxtIn = null;
     
     public Connector() {
         try {
@@ -45,12 +41,15 @@ public class Connector implements Runnable {
     public boolean tryConnection(int index, int mode) {
         if (nxtCon.connectTo(nxtInfo[index], mode)) {
             nxtOut = nxtCon.getOutputStream();
-            nxtIn = nxtCon.getInputStream();
-            new Thread(this).start();
+            nxtIn = (NXTCommInputStream) nxtCon.getInputStream();
             return true;
         } else {
             return false;
         }
+    }
+    
+    public InputStream getNXTInputStream() {
+        return nxtIn;
     }
     
     public boolean writeData(int data) {
@@ -72,22 +71,6 @@ public class Connector implements Runnable {
             nxtOut.flush();
         } catch (IOException ex) {
             System.exit(1);
-        }
-    }
-
-    @Override
-    public void run() {
-        while(true) {
-            try {
-                data = nxtIn.read();
-                if (data == 255) {
-                    System.out.println("Shutdown by NXT");
-                    System.exit(0);
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
-                System.exit(0); // workaround because it doesn't get the data packet for some reason...
-            }
         }
     }
 }

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package me.mastermind.NXJ_pc;
 
 import java.awt.KeyEventDispatcher;
@@ -9,8 +5,6 @@ import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -43,6 +37,20 @@ public class GUI extends JFrame {
                             lastKeyPressed = KeyEvent.VK_DOWN;
                         }
                         break;
+                    case KeyEvent.VK_LEFT:
+                        if (lastKeyPressed != KeyEvent.VK_LEFT) {
+                            statusLabel.setText("Status: Left");
+                            RemoteController.write(15);
+                            lastKeyPressed = KeyEvent.VK_LEFT;
+                        }
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        if (lastKeyPressed != KeyEvent.VK_RIGHT) {
+                            statusLabel.setText("Status: Right");
+                            RemoteController.write(25);
+                            lastKeyPressed = KeyEvent.VK_RIGHT;
+                        }
+                        break;
                     case KeyEvent.VK_PLUS:
                         statusLabel.setText("Status: Speed+");
                         RemoteController.write(40);
@@ -61,6 +69,8 @@ public class GUI extends JFrame {
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_UP:
                     case KeyEvent.VK_DOWN:
+                    case KeyEvent.VK_LEFT:
+                    case KeyEvent.VK_RIGHT:
                     case KeyEvent.VK_PLUS:
                     case KeyEvent.VK_MINUS:
                         statusLabel.setText("Status: Stop");

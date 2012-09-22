@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package me.mastermind.NXJ_pc;
 
 import lejos.pc.comm.NXTComm;
@@ -11,12 +7,9 @@ import lejos.pc.comm.NXTComm;
  * @author Alexander
  */
 public class RemoteController {
-
-    /**
-     * @param args the command line arguments
-     */
     
     private static Connector nxt = new Connector();
+    private static Thread receiver;
     
     public static void main(String[] args) {
         GUI.main(args);
@@ -31,6 +24,8 @@ public class RemoteController {
             System.out.println("Could not connect to NXT.");
             return false;
         }
+        receiver = new Thread(new Receiver());
+        receiver.start();
         return true;
     }
     
