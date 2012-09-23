@@ -51,6 +51,13 @@ public class GUI extends JFrame {
                             lastKeyPressed = KeyEvent.VK_RIGHT;
                         }
                         break;
+                    case KeyEvent.VK_SPACE:
+                        if (lastKeyPressed != KeyEvent.VK_SPACE) {
+                            statusLabel.setText("Status: Space");
+                            RemoteController.write(50);
+                            lastKeyPressed = KeyEvent.VK_SPACE;
+                        }
+                        break;
                     case KeyEvent.VK_PLUS:
                         statusLabel.setText("Status: Speed+");
                         RemoteController.write(40);
@@ -71,6 +78,7 @@ public class GUI extends JFrame {
                     case KeyEvent.VK_DOWN:
                     case KeyEvent.VK_LEFT:
                     case KeyEvent.VK_RIGHT:
+                    case KeyEvent.VK_SPACE:
                     case KeyEvent.VK_PLUS:
                     case KeyEvent.VK_MINUS:
                         statusLabel.setText("Status: Stop");
