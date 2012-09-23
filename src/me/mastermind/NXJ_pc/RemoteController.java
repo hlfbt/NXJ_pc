@@ -1,7 +1,5 @@
 package me.mastermind.NXJ_pc;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import lejos.pc.comm.NXTComm;
 
 /**
@@ -32,15 +30,7 @@ public class RemoteController {
     }
     
     public static boolean write(int data) {
-        try {
-            receiver.wait();
-        } catch (InterruptedException ex) {
-            System.out.println("\n\n\nwait error\n\n\n");
-            Logger.getLogger(RemoteController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        boolean success = nxt.writeData(data);
-        receiver.notify();
-        return success;
+        return nxt.writeData(data);
     }
     
     public static void kill() {
