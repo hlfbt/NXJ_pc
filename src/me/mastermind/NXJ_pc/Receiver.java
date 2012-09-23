@@ -1,9 +1,8 @@
 package me.mastermind.NXJ_pc;
 
-import java.io.InputStream;
-import lejos.pc.comm.NXTCommInputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import lejos.pc.comm.NXTCommInputStream;
 
 /**
  *
@@ -17,7 +16,6 @@ public class Receiver implements Runnable {
         while(true) {
             try {
                 data = nxtIn.read();
-                System.out.println(data);
                 if (data == 255) {
                     System.out.println("Shutdown by NXT");
                     System.exit(0);
