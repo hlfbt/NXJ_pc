@@ -30,8 +30,13 @@ public class Connector {
             nxtComm = NXTCommFactory.createNXTComm(NXTCommFactory.USB);
             nxtInfo = nxtComm.search(null);
             if (nxtInfo.length == 0) {
-                nxtComm = NXTCommFactory.createNXTComm(NXTCommFactory.BLUETOOTH);
-                nxtInfo = nxtComm.search(null);
+                try {
+                    nxtComm = NXTCommFactory.createNXTComm(NXTCommFactory.BLUETOOTH);
+                    nxtInfo = nxtComm.search(null);
+                }
+                catch (NXTCommException ex) {
+                    System.out.println("No Bluetooth Dongle found.");
+                }
             }
         } catch (NXTCommException ex) {
             Logger.getLogger(Connector.class.getName()).log(Level.SEVERE, null, ex);
