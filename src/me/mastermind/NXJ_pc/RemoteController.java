@@ -25,8 +25,10 @@ public class RemoteController {
             System.out.println("Could not connect to NXT.");
             return false;
         }
-        receiverThread = new Thread(receiver);
-//        receiverThread.start();
+        if (nxt.getNXTInfo()[0].protocol == 2) {
+            receiverThread = new Thread(receiver);
+            receiverThread.start();
+        }
         return true;
     }
     

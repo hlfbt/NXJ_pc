@@ -26,13 +26,13 @@ public class Receiver implements Runnable {
             }
         }
     }
-//    public void waitThread() {
-//        synchronized (this) {
-//            try {
-//                this.wait();
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(Receiver.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//    }
+    public void waitThread() {
+        synchronized (this) {
+            try {
+                this.wait();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Receiver.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }
