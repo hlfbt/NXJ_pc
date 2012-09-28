@@ -1,18 +1,19 @@
 package me.mastermind.NXJ_pc;
 
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import lejos.pc.comm.NXTCommInputStream;
 
 /**
  *
  * @author alex
  */
-public class Receiver implements Runnable {    
+public class Receiver implements Runnable {
+    public static InputStream nxtIn;
     @Override
     public void run() {
         int data;
-        NXTCommInputStream nxtIn = Connector.nxtIn;
+        this.nxtIn = Connector.nxtIn;
         while(true) {
             try {
                 data = nxtIn.read();
@@ -26,13 +27,7 @@ public class Receiver implements Runnable {
             }
         }
     }
-    public void waitThread() {
-        synchronized (this) {
-            try {
-                this.wait();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Receiver.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+    public void stopThread(Thread thread) {
+        thread.interrupt();
     }
 }

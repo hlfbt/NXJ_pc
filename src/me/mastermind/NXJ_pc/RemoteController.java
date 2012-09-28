@@ -33,9 +33,7 @@ public class RemoteController {
     }
     
     public static boolean write(int data) {
-//        receiver.waitThread();
         boolean success = nxt.writeData(data);
-//        receiver.notify();
         return success;
     }
     
